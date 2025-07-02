@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Répondre au Ticket</h1>
+
+<p><strong>Signalé par:</strong> {{ ticket.signalement.user.username }}</p>
+<p><strong>Objet:</strong> {{ ticket.signalement.objet }}</p>
+<p><strong>Description:</strong> {{ ticket.signalement.description }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Envoyer la réponse</button>
+</form>
+
+<a href="{% url 'ticket_list' %}" class="btn btn-secondary mt-3">Retour à la liste</a>
+{% endblock %}

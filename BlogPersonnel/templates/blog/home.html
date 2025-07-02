@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Articles récents</h2>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'post_create' %}" class="btn btn-primary mb-4">Créer un nouveau post</a>
+{% endif %}
+<form method="get">
+    <select name="category">
+        <option value="">-- Toutes les catégories --</option>
+        {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>
+                {{ cat.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>
+        <input type="checkbox" name="sort" value="likes" {% if request.GET.sort == 'likes' %}checked{% endif %}>
+        Les post Le plus interactif
+    </label>
+
+    <button type="submit">Filtrer</button>
+</form><br>
+<div class="d-flex flex-wrap gap-4">  
+    {% for post in posts %}
+        <div class="card" style="width: 18rem; position: relative;">
+            
+            <div class="dropdown" style="position: absolute; top: 10px; right: 10px;">
+                {% if user.is_authenticated %}
+                <button class="btn btn-light btn-sm rounded-circle" 
+                        type="button" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                        style="width: 32px; height: 32px;">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                
+                <ul class="dropdown-menu dropdown-menu-end">
+                    
+                    {% if not post.author == user %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'signaler_post' post.pk %}">
+                            Signaler le post
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'profile_id' post.author.id %}">Show Profile</a>
+                    </li>
+                        {% if user == post.author %}
+                            <li><a class="dropdown-item" href="{% url 'modifier_post' post.pk %}">Modifier</a></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'supprimer_post' post.pk %}">Supprimer</a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+                <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Voir plus</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

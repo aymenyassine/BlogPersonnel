@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <img src="{{user_profile.imageCoverture.url}}" alt="imageCoverture" style="width: 100px;">
+    <br><br>
+    <img src="{{user_profile.imageProfile.url}}" alt="imageProfile" style="width: 100px;">
+  <h1>Profile de {{ user_profile.username }}</h1>
+  <h4>Bio : {{user_profile.bio}}</h4>
+
+  <h2>Ses publications :</h2>
+  <div>
+    {% for post in posts %}
+      <div style="border: 1px solid #ccc; margin-bottom: 20px; padding: 10px;">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content|truncatewords:30 }}</p>
+        {% if post.image %}
+          <img src="{{ post.image.url }}" alt="Image du post" style="max-width: 300px;">
+        {% endif %}
+        <p>👍 Likes : {{ post.likes.count }} | 💬 Commentaires : {{ post.comments.count }}</p>
+        <p><a href="{% url 'post_detail' post.pk %}">Voir plus</a></p>
+      </div>
+    {% empty %}
+      <p>Aucun post pour cet utilisateur.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

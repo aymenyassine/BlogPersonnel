@@ -1,0 +1,61 @@
+/* Style général pour le container des posts */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Style des éléments de la liste */
+ul li {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre du post */
+ul li strong a {
+    color: #007bff;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+ul li strong a:hover {
+    text-decoration: underline;
+}
+
+/* Infos de l'auteur */
+ul li strong {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Style pour le corps du post */
+ul li p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Image de l'article */
+ul li img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Message lorsque l'image est absente */
+ul li p {
+    font-style: italic;
+    color: #888;
+}
+
+/* Style du titre */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+}

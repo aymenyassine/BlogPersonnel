@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/blog/AllPost.css' %}">
+{% block title %}Créer un post{% endblock %}
+{% block content %}
+<h2>Nouveau Post</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Publier</button>
+</form>
+{% endblock %}

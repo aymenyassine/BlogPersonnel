@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+    <h1>Connexion</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form_login.as_p }}
+        <button type="submit">Se connecter</button>
+        <p>Pas de compte ? <a href="{% url 'register' %}">Inscrivez-vous</a></p>
+    </form>
+{% endblock %}
